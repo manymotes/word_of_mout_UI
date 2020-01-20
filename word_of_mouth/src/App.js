@@ -1,8 +1,40 @@
 import React from 'react';
 import './App.css';
+import './graphqlQueries/CreateUserMutation';
+import axios from 'axios';
 
 function App() {
-  return (
+
+      function signUpClick() {
+          console.log("sign up clicked");
+          const api = axios.create({
+          });
+          api.post("/graphql",
+              { query: `
+                mutation CreateUser($user: UserInput!) {
+                  createUser(user: $user) {
+                      email
+                      lastName
+                      firstName
+                      uuid
+                  }
+                }
+                `,
+                variables: {
+                  user: {
+                      firstName: "ken",
+                      lastName: "mot",
+                      email: "email@rq.dev",
+                      password: 'pass!',
+                      age: "1",
+                      gender: "male",
+                  }
+                },
+              }).then(result => console.log(result))
+          .catch(err => console.group(err));
+      }
+
+      return (
     <div className="App">
         <header>Word of Mouth</header>
         <br/>
@@ -29,7 +61,7 @@ function App() {
 
         <br/>
         <br/>
-        <button id={"signUp"}>Sign Up</button>
+        <button id={"signUp"} onClick={signUpClick}>Sign Up</button>
 
     </div>
   );
