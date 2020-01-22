@@ -1,69 +1,55 @@
 import React from 'react';
-import './App.css';
-import './graphqlQueries/CreateUserMutation';
-import axios from 'axios';
+import {
+    BrowserRouter as Router,
+} from 'react-router-dom'
+import Signup from "./componants/views/Signup";
+import { LOGIN } from '../src/Paths';
 
 function App() {
 
-      function signUpClick() {
-          console.log("sign up clicked");
-          const api = axios.create({
-          });
-          api.post("/graphql",
-              { query: `
-                mutation CreateUser($user: UserInput!) {
-                  createUser(user: $user) {
-                      email
-                      lastName
-                      firstName
-                      uuid
-                  }
-                }
-                `,
-                variables: {
-                  user: {
-                      firstName: "ken",
-                      lastName: "mot",
-                      email: "email@rq.dev",
-                      password: 'pass!',
-                      age: "1",
-                      gender: "male",
-                  }
-                },
-              }).then(result => console.log(result))
-          .catch(err => console.group(err));
-      }
+
+    //
+    // const [email, setEmail] = useState('');
+    // const [password, setPassword] = useState('');
+    // const [age, setAge] = useState('');
+    // const [firstName, setFirstName] = useState('');
+    // const [lastName, setLastName] = useState('');
+    // const [gender, setGender] = useState('');
+    //
+    //   function signUpClick() {
+    //       console.log("sign up clicked");
+    //       const api = axios.create({
+    //       });
+    //       api.post("/graphql",
+    //           { query: `
+    //             mutation CreateUser($user: UserInput!) {
+    //               createUser(user: $user) {
+    //                   email
+    //                   lastName
+    //                   firstName
+    //                   uuid
+    //               }
+    //             }
+    //             `,
+    //             variables: {
+    //               user: {
+    //                   firstName: firstName,
+    //                   lastName: lastName,
+    //                   email: email,
+    //                   password: password,
+    //                   age: age,
+    //                   gender: gender,
+    //               }
+    //             },
+    //           }).then(result => console.log(result))
+    //       .catch(err => console.group(err));
+    //   }
 
       return (
-    <div className="App">
-        <header>Word of Mouth</header>
-        <br/>
-        <br/>
-        <br/>
-        <p>Sign Up</p>
-        <input placeholder={"Email"} />
-        <input placeholder={"Password"}/>
+          <Router>
+            <Signup path={LOGIN} />
+          </Router>
 
-        <br/>
-        <br/>
-        <input placeholder={"First Name"} />
-        <input placeholder={"Last Name"}/>
-
-        <br/>
-        <br/>
-        <input placeholder={"First Name"} />
-        <input placeholder={"Last Name"}/>
-
-        <br/>
-        <br/>
-        <input placeholder={"Age"} />
-        <input placeholder={"Gender"}/>
-
-        <br/>
-        <br/>
-        <button id={"signUp"} onClick={signUpClick}>Sign Up</button>
-
-    </div>
   );
 }
 
